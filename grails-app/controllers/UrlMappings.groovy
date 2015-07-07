@@ -7,6 +7,8 @@ class UrlMappings {
             }
         }
 
+        "/add/$x/$y"(controller: 'math', action: 'addNumbers')
+
         "/"(view:"/index")
         "500"(view:'/error')
         "404"(view:'/notFound')
