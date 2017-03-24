@@ -5,6 +5,6 @@ class NumberReporterService {
     static expose = ['jms']
 
     def onMessage(msg) {
-        println "The Following Message Was Received: [$msg]"
+        log.debug "The Following Message Was Received: [$msg]"
     }
 }

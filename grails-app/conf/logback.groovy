@@ -37,3 +37,5 @@ if (Environment.isDevelopmentMode() && targetDir != null) {
 else {
     root(ERROR, ['STDOUT'])
 }
+
+logger 'grails.app.services.demo.NumberReporterService', DEBUG, ['STDOUT'], false
