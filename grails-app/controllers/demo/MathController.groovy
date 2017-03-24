@@ -1,15 +1,17 @@
 package demo
 
+import grails.plugin.jms.JmsService
+
 class MathController {
 
-    def jmsService
+    JmsService jmsService
 
     def addNumbers(int x, int y) {
-        def sum = x + y
-        def msg = "The sum of $x and $y is $sum"
+        int sum = x + y
+        String msg = "The sum of $x and $y is $sum"
 
         // this will post a message that should be received by the NumberReporterService
-        jmsService.send 'jmsdemo.numberReporter', msg as String
+        jmsService.send 'jmsdemo.numberReporter', msg
 
         render msg
     }
