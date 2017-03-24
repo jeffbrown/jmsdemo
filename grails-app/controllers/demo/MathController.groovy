@@ -9,7 +9,7 @@ class MathController {
         def msg = "The sum of $x and $y is $sum"
 
         // this will post a message that should be received by the NumberReporterService
-        jmsService.send 'jmsdemo.numberReporter', msg
+        jmsService.send 'jmsdemo.numberReporter', msg as String
 
         render msg
     }

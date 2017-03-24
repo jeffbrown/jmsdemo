@@ -3,15 +3,26 @@ grails:
     profile: web
     codegen:
         defaultPackage: jmsdemo
+    spring:
+        transactionManagement:
+            proxies: false
 info:
     app:
         name: '@info.app.name@'
         version: '@info.app.version@'
         grailsVersion: '@info.app.grailsVersion@'
 spring:
+    main:
+        banner-mode: "off"
     groovy:
         template:
             check-template-location: false
+
+# Spring Actuator Endpoints are Disabled by Default
+endpoints:
+    enabled: false
+    jmx:
+        enabled: true
 
 ---
 grails:
@@ -30,7 +41,7 @@ grails:
             css: text/css
             csv: text/csv
             form: application/x-www-form-urlencoded
-            html: 
+            html:
               - text/html
               - application/xhtml+xml
             js: text/javascript
@@ -38,9 +49,10 @@ grails:
               - application/json
               - text/json
             multipartForm: multipart/form-data
+            pdf: application/pdf
             rss: application/rss+xml
             text: text/plain
-            hal: 
+            hal:
               - application/hal+json
               - application/hal+xml
             xml:
@@ -64,10 +76,18 @@ grails:
                 scriptlets: html
                 taglib: none
                 staticparts: none
+endpoints:
+    jmx:
+        unique-names: true
+
+---
 hibernate:
     cache:
         queries: false
----
+        use_second_level_cache: true
+        use_query_cache: false
+        region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+
 dataSource:
     pooled: true
     jmxExport: true
@@ -86,8 +106,8 @@ environments:
             url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
     production:
         dataSource:
-            dbCreate: update
-            url: jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            dbCreate: none
+            url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
             properties:
                 jmxEnabled: true
                 initialSize: 5
